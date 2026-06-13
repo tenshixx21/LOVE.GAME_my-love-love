@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Quicksand',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        135deg,
+        #ffd6e7,
+        #ffe5ee,
+        #fff0f5
+    );
+    overflow:hidden;
+    padding:20px;
+}
+
+.card{
+    width:95%;
+    max-width:750px;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    border-radius:35px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 10px 40px rgba(255,182,193,.4);
+    position:relative;
+    z-index:2;
+}
+
+.hidden{
+    display:none;
+}
+
+h1{
+    color:#ff6fa5;
+    margin-bottom:15px;
+}
+
+h2{
+    color:#ff6fa5;
+}
+
+p{
+    color:#666;
+    line-height:1.8;
+}
+
+button{
+    width:100%;
+    margin:10px 0;
+    padding:14px;
+    border:none;
+    border-radius:999px;
+    background:#ffb6d5;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.progress{
+    color:#ff6fa5;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.letter{
+    background:#fff6fa;
+    border:4px dashed #ffb6d5;
+    border-radius:25px;
+    padding:25px;
+    margin-top:20px;
+}
+
+.kitty{
+    font-size:35px;
+    margin:10px 0;
+}
+
+.heart{
+    position:fixed;
+    bottom:-30px;
+    animation:floatUp 8s linear forwards;
+    pointer-events:none;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+.sparkle{
+    position:fixed;
+    color:white;
+    pointer-events:none;
+    animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+    50%{
+        opacity:.2;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+    <!-- START SCREEN -->
+    <div id="startScreen">
+        <div class="kitty">🎀 🐱 🎀</div>
+
+        <h1>💖 How Well Do You Know Me? 💖</h1>
+
+        <p>
+            Answer all the questions correctly and unlock a special letter! 🌸
+        </p>
+
+        <br>
+
+        <button onclick="startGame()">
+            Start Game 🎀
+        </button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quizScreen" class="hidden">
+
+        <div class="progress" id="progress"></div>
+
+        <h2 id="question"></h2>
+
+        <br>
+
+        <div id="answers"></div>
+
+    </div>
+
+    <!-- END SCREEN -->
+    <div id="endScreen" class="hidden">
+
+        <div class="kitty">
+            🎀 🐱 🌸 💖 🌸 🐱 🎀
+        </div>
+
+        <h1>Congratulations! 💖</h1>
+
+        <h2 id="score"></h2>
+
+        <div class="letter">
+
+            <div class="kitty">
+                🐱 🎀 🩷 🎀 🐱
+            </div>
+
+            <h2>💌 A Letter For You 💌</h2>
+
+            <br>
+
+            <p>
+                I'll always love you no matter what,
+                and you should never forget that.
+                <br><br>
+
+                I love you so much
+                to the moon and back,
+                to infinity and beyond.
+                <br><br>
+
+                Mwaaaahhhh 💖
+            </p>
+
+            <br>
+
+            <div class="kitty">
+                🌸 🎀 🐱 💕 🐱 🎀 🌸
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"💖 What is my favorite thing about you?",
+answers:[
+"Your eyes",
+"Your smile",
+"Your hair",
+"Your voice"
+],
+correct:"Your hair"
+},
+
+{
+question:"🌸 What nickname do I call you the most?",
+answers:[
+"Baby",
+"Love",
+"Gi",
+"Sweetheart"
+],
+correct:"Gi"
+},
+
+{
+question:"🎵 What song reminds me of you?",
+answers:[
+"Palagi",
+"Mundo",
+"Tahanan",
+"Ikaw at Ako"
+],
+correct:"Mundo"
+},
+
+{
+question:"😂 What always makes me laugh?",
+answers:[
+"Romantic messages",
+"Memes",
+"Cute videos",
+"Your jokes"
+],
+correct:"Memes"
+},
+
+{
+question:"💌 What is one thing I always tell you?",
+answers:[
+"I'm sleepy",
+"I miss you",
+"Eat well",
+"Good luck"
+],
+correct:"I miss you"
+},
+
+{
+question:"🍓 What's my favorite color?",
+answers:[
+"Pink",
+"Blue",
+"Purple",
+"Black"
+],
+correct:"Pink"
+},
+
+{
+question:"✨ What do I usually do when I miss you?",
+answers:[
+"Sleep",
+"Listen to music",
+"Annoy you",
+"Play games"
+],
+correct:"Annoy you"
+},
+
+{
+question:"🧸 What is something I appreciate most about you?",
+answers:[
+"You're funny",
+"You've changed a lot",
+"You're smart",
+"You're talented"
+],
+correct:"You've changed a lot"
+},
+
+{
+question:"🌷 If I could spend a whole day with you, what would I want to do?",
+answers:[
+"Watch movies",
+"Go shopping",
+"Talk and spend time together",
+"Sleep"
+],
+correct:"Talk and spend time together"
+},
+
+{
+question:"❤️ Final Question: Who do I love the most?",
+answers:[
+"My friends",
+"My family",
+"My pets",
+"Youuu ❤️"
+],
+correct:"Youuu ❤️"
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function startGame(){
+
+document.getElementById("startScreen")
+.classList.add("hidden");
+
+document.getElementById("quizScreen")
+.classList.remove("hidden");
+
+showQuestion();
+}
+
+function showQuestion(){
+
+const q = questions[currentQuestion];
+
+document.getElementById("progress").innerHTML =
+`Question ${currentQuestion+1} of ${questions.length} 🎀`;
+
+document.getElementById("question").innerText =
+q.question;
+
+const answersDiv =
+document.getElementById("answers");
+
+answersDiv.innerHTML = "";
+
+q.answers.forEach(answer=>{
+
+const btn =
+document.createElement("button");
+
+btn.innerText = answer;
+
+btn.onclick = ()=>{
+
+if(answer === q.correct){
+score++;
+}
+
+currentQuestion++;
+
+if(currentQuestion < questions.length){
+showQuestion();
+}
+else{
+showEnd();
+}
+
+};
+
+answersDiv.appendChild(btn);
+
+});
+
+}
+
+function showEnd(){
+
+document.getElementById("quizScreen")
+.classList.add("hidden");
+
+document.getElementById("endScreen")
+.classList.remove("hidden");
+
+document.getElementById("score").innerHTML =
+`You got ${score}/${questions.length} correct! 💕`;
+
+}
+
+function createHeart(){
+
+const heart =
+document.createElement("div");
+
+heart.classList.add("heart");
+
+const hearts = [
+"💖","💕","🌸","🎀","🩷"
+];
+
+heart.innerHTML =
+hearts[Math.floor(Math.random()*hearts.length)];
+
+heart.style.left =
+Math.random()*100+"vw";
+
+heart.style.fontSize =
+(20+Math.random()*25)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
